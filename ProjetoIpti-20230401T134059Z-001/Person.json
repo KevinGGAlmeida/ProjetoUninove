@@ -1,0 +1,13 @@
+{
+    "Usuarios": [
+
+        {
+            "Nome": "Admin",
+            "Email": "admin@admin.com",
+            "Senha": "admin",
+            "Curso": [
+                "Automacao Residencial - IOT"
+            ]
+        }
+    ]
+}

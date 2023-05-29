@@ -1,0 +1,261 @@
+{% block style %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Website</title>
+
+    <!-- google fonts cdn link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+
+    <link rel="stylesheet" href="/static/styles.css">
+
+    <script>
+
+    function teste(){
+
+        const modal = document.querySelector('#login')
+        const modalToggle = document.querySelector('.create-form')
+        const closeModal = document.querySelector('.create-form form .fa-times')
+        document.evaluate("/html/body/div[1]/form/i",document,null,XPathResult.FIRST_ORDERED_NODE_TYPE,null).singleNodeValue.click()
+
+
+
+        // Adicionando modal 
+            modalToggle.classList.add('popup');
+
+
+        // Removendo modal
+        closeModal.addEventListener('click', () => {
+            modalToggle.classList.remove('popup');
+        });
+    }
+    </script>
+
+</head>
+
+{% endblock %}
+
+<body>
+
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+     <ul>
+     {% for message in messages %}
+       <p id="RetornoCurso" hidden>{{ message }}</p>
+       <script>alert(document.getElementById('RetornoCurso').innerText)</script>
+     {% endfor %}
+     </ul>
+    {% endif %}
+    {% endwith %}
+{% block body %}
+
+
+    <!-- Início da seção menu navbar -->
+    <header>
+
+        <div id="menu" class="fas fa-bars"></div>
+
+        <a href="#" class="logo">
+            <img class='ipti-logo' src="/static/img/logo.png" alt="Logo Empresa IPTI">
+        </a>
+
+    
+
+        <nav class="navbar">
+            <ul>
+                <li><a href="#inicio">início</a></li>
+                <li><a href="#cursos">cursos</a></li>
+                <li><a href="#professores">professores</a></li>
+                <li><a href="#sobre">sobre</a></li>
+                <li><a href="#contato">contato</a></li>
+            </ul>
+        </nav>
+
+        {% endblock %}
+
+        <div class="UserInfo">
+
+            <div id="login" class="fas fa-user-circle">
+                {{ User }}
+            </div>
+
+            <a href="/logout" id="Deslogar" style="color: white;font-size: 30px;">Sair</a>
+
+        </div>
+
+
+        
+
+        
+
+        <script>
+            
+            if (document.getElementById("login").innerText != ''){
+                document.getElementById('login').style.pointerEvents = "none";
+                
+            }  
+            else{
+                document.getElementById('Deslogar').style.display = 'none'
+            } 
+        </script>
+
+    </header>
+    <!-- Fim da seção menu navbar -->
+
+    <!-- Inicio form Login -->
+    <div class="login-form">
+        <form action="/Auth" method="POST">
+            <h3>login</h3>
+            <input type="text" placeholder="insira seu RA" class="box" name="Login">
+            <input type="password" placeholder="insira sua senha" class="box" name="Senha">
+            <p>esqueceu a senha? <a href="#">clique aqui</a></p>
+            <p onclick="teste()">não tem uma conta? <a href="#">cadastre-se agora</a></p>
+            <input type="submit" class="btn" value="login">
+            <i class="fas fa-times"></i>
+            <p style="color:red;font-size:25px;">{{ message }}</p>
+        </form>
+    </div>
+
+    <div class="create-form">
+        <form action="/Create" method="POST">
+            <h3>CreateUser</h3>
+            <input type="text" placeholder="insira seu RA" class="box" name="Login">
+            <input type="password" placeholder="insira sua senha" class="box" name="Senha">
+            <input type="email" placeholder="insira seu Email" class="box" name="Email">
+            <input type="submit" class="btn" value="Create">
+            <p id="Erro" style="color:red;font-size:25px;">{{ Erro }}</p>
+            
+            <i class="fas fa-times"></i>
+        </form>
+    </div>
+    <!-- Fim form Login -->
+
+    <script>        
+        if (document.getElementById("Erro").innerText != ''){
+            alert("Email já cadastrado")
+        }
+    </script>
+
+    <!-- Inicio seção Home -->
+    <section id="inicio" class="home">
+        <h1>IPTI - Educação para Todos</h1>
+        <p>Para a empresa excelente, a inovação é a unica coisa permanente
+        </p>
+        <a href="#"><button class="btn"> Iniciar </button></a>
+    </section>
+    <!-- Fim seção Home -->
+
+    <!-- Inicio seção Curso -->
+    <section id="cursos" class="curso">
+        <h3 class="titulo"> cursos populares </h3>
+        <div class="box-container">
+        </div>
+    </section>
+    <!-- Fim seção Curso -->
+
+    <!-- Inicio seção Professores -->
+    <section id="professores" class="professor">
+
+        <div class="content">
+            <h3>nossos professores</h3>
+            <p>
+                Contamos com professores capacitados para dar o suporte necessário ao aluno.
+                Uma equipe Especializada em diversas Áreas, preparada para ajudar os alunos a superar suas dificuldades, descobrir seus sonhos, desenvolver suas habilidades e transmitir todo o conhecimento da melhor maneira possível.
+            </p>
+            
+            <a href="#"><button class="btn">leia mais</button></a>
+        </div>
+
+        <div class="image">
+            <img src="/static/img/teacher.svg" alt="Estudante Tecnologia">
+        </div>
+
+    </section>
+    <!-- Fim seção Professores -->
+
+    <!-- Inicio seção Sobre -->
+    <section id="sobre" class="sobre">
+
+        <div class="image">
+            <img src="/static/img/Company.svg" alt="Estudante Tecnologia">
+        </div>
+
+        <div class="content">
+            <h3>Quem somos nós?</h3>
+            <p>IPTI (Instituto Profissionalizante de Tecnologia em IoT), fundada em 2021, somos uma plataforma de ensino na área de IoT com objetivo de aprimorar conhecimentos na tecnologia e preparação para o mercado de trabalho.</p>
+            <a href="#"><button class="btn"> leia mais</button></a>
+        </div>
+
+    </section>
+    <!-- Fim seção Sobre -->
+
+    <!--  Inicio seção Contato -->
+    <section class="contato" id="contato">
+
+        <div class="row">
+
+            <div class="form">
+                <h3>fale conosco</h3>
+
+                <form action="">
+                    <input type="text" placeholder="seu nome" class="box">
+                    <input type="email" placeholder="seu email" class="box">
+                    <input type="text" placeholder="seu endereço" class="box">
+                    <input type="number" placeholder="seu telefone" class="box">
+                    <textarea name="" id="" cols="30" rows="10" class="box address"
+                        placeholder="sua mensagem"></textarea>
+                    <input type="submit" class="btn" value="enviar">
+                </form>
+            </div>
+
+            <div class="image">
+                <img src="/static/img/contact-img.png" alt="Contato">
+            </div>
+        </div>
+
+    </section>
+    <!-- Fim seção Contato -->
+
+    <!-- Inicio seção Footer -->
+    <div class="footer">
+        <div class="box-container">
+
+            <div class="box">
+                <h3>links úteis</h3>
+                <a href="#inicio">início</a>
+                <a href="#cursos">cursos</a>
+                <a href="#professores">professores</a>
+                <a href="#sobre">sobre</a>
+                <a href="#contato">contato</a>
+            </div>
+
+            <div class="box">
+                <h3>informações de contato</h3>
+                <p><i class="fas fa-map-marker-alt"></i> São paulo, Brasil | Paulista nº 978  </p>
+                <p><i class="fas fa-envelope"></i> contato@ipti.com.br </p>
+                <p><i class="fas fa-phone"></i> + 55 (11) 4887-8553 </p>
+                <p><i class="fas fa-phone"></i> + 55 (11) 7898-2438 </p>
+            </div>
+        </div>
+
+        <h1 class="credit">
+            <a href="#">IPTI INC</a> todos os direitos reservados.
+        </h1>
+    </div>
+    <!-- Fim seção Footer -->
+
+    <script src="/static/"></script>
+    <script src="/static/modal.js"></script>
+    <script src="/static/cards.js"></script>
+</body>
+
+</html>
